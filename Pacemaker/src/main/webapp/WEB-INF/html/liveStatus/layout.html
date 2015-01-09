@@ -1,0 +1,25 @@
+
+<h3 style="margin-left:100px;">Live Status</h3>
+<div class="alert alert-info" style="width:400px;margin-left:100px;" ng-show="liveServices.length == 0">
+    No data found
+</div>
+<div class="titleBox" ng-show="liveServices.length > 0">
+		<ul class="nav nav-pills">						
+			<li class="active">
+				<span>Service Name</span>
+			</li>
+			<li class="active">
+				<span>Status</span>
+			</li>
+		</ul>				
+		<table class="atable"  table-condensed>
+			<tbody>
+				<tr ng-repeat="service in liveServices">
+					<td>{{service.name}}</td>
+					<td>
+						<progress value={{service.healthStatus}} max="100"></progress>
+					</td>
+				</tr> 
+		    </tbody>
+		</table>
+</div>

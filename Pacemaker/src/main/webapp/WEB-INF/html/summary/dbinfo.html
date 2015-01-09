@@ -1,0 +1,55 @@
+<div class="tableMax">
+	<div class="div-table-caption">
+		Database information
+	</div>
+	<accordion close-others="true">
+	    <accordion-group ng-init="isOpen = true" is-open="isOpen">
+	        <accordion-heading>
+	            Reservation Service MYSQL DB<img src="resources/images/glyphicons_223_chevron-right.png" style="float:right">
+	        </accordion-heading>
+	        QA DB:
+	        <p>DB Server: dbposrvq.qa.ch3.s.com
+		        <br/>Schema: imsqa
+		        <br/>Connection-URL : jdbc:mysql://dbposrvq.qa.ch3.s.com/imsqa
+		    </p>
+		    Production DB:
+	        <p>DB Server: dbposrv.prod.ch4.s.com
+		        <br/>Schema: imsprod
+		        <br/>Connection-URL : jdbc:mysql://dbposrv.prod.ch4.s.com/imsprod
+		    </p>
+	    </accordion-group>
+		 <accordion-group>
+	        <accordion-heading>
+	          URS Service Casandra DB<img src="resources/images/glyphicons_223_chevron-right.png" style="float:right">
+	        </accordion-heading>
+	        <p>DB Server: iacass301p.qa.ch3.s.com
+		        <br/><br/>KeySpace: urs
+		        <br/><br/>Connection-URL : cd /opt/cassandra/bin/
+									 ./cqlsh -C iacass301p.stress.ch3.s.com
+									 use "urs";
+		        <br/><br/>
+		        CREATE TABLE urs_audit (
+				  requestid text PRIMARY KEY,
+				  creationdate text,
+				  ffmtype text,
+				  lastupdate text,
+				  requestinfo text,
+				  reservationstatus text,
+				  responseinfo text,
+				  senderid text,
+				  systemsinvolved text
+				) WITH COMPACT STORAGE AND
+				  bloom_filter_fp_chance=0.010000 AND
+				  caching='KEYS_ONLY' AND
+				  comment='' AND
+				  dclocal_read_repair_chance=0.000000 AND
+				  gc_grace_seconds=864000 AND
+				  read_repair_chance=0.100000 AND
+				  replicate_on_write='true' AND
+				  populate_io_cache_on_flush='false' AND
+				  compaction={'class': 'SizeTieredCompactionStrategy'} AND
+				  compression={'sstable_compression': 'SnappyCompressor'};
+		    </p>		   
+	    </accordion-group>	    
+	</accordion>
+</div>

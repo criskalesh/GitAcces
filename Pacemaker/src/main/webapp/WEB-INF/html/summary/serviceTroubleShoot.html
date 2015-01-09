@@ -1,0 +1,32 @@
+<div class="tableMax">
+	<div class="div-table-caption">
+		Frequently Occurring Issues
+	</div>
+	<accordion close-others="true">
+	    <accordion-group ng-init="isOpen = true" is-open="isOpen">
+	        <accordion-heading>
+	            Connection Timeout Issue <img src="resources/images/glyphicons_223_chevron-right.png" style="float:right">
+	        </accordion-heading>
+	        There are typically two types of timeouts that should be set when making calls over the web: the Connection Timeout and the Socket Timeout. 
+			The Connection Timeout is the maximum amount of time that should be allowed when establishing the bi-directional socket connection between the client and server.  
+			Behind the scenes socket connection involves resolving the domain name of the server to an IP address, and then the server opening a port to 
+			connect with the client’s port.   
+	    </accordion-group>
+		 <accordion-group>
+	        <accordion-heading>
+	            Socket Timeout Issue <img src="resources/images/glyphicons_223_chevron-right.png" style="float:right">
+	        </accordion-heading>
+	        The Socket Timeout is the timeout that limits the amount of time each socket operation is allowed to take.  
+			It limits the amount of time InputStream.read() will listen for a server’s response.  
+			If a server is faulty or overloaded it may take a long time (or forever) to respond to a request. 
+			This timeout limits the amount of time the client will wait for the server to respond.
+			When making any calls from a Custom Object to an external server (either making WebService calls, or FTP transfers), 
+			you should always set the Connection Timeout and the Socket Timeout.  Always try to keep the timeouts as reasonably small as possible.  
+			Failure to do so could unexpectedly impact your server.  Consider a Custom Object that takes an average of 10 seconds to run is called 
+			to make an external WebService call once a minute. This will not cause any issues and the  system will be stable.  
+			If the external server suddenly has a performance degredation and now the external WebService call takes over a minute to run, 
+			the execution queue will eventually fill, causing performance degradation to your system.  
+			To protect against this scenario, set the timeouts to limit the call to one minute, and log whenever the time limit is exceeded
+	    </accordion-group>	    
+	</accordion>
+</div>

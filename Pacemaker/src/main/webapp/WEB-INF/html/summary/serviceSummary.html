@@ -1,0 +1,34 @@
+
+<div class="tableMax">
+	<div class="div-table-caption">
+		Service Health Status 
+	</div>
+	<div ng-controller="ServicesSummaryController">
+		<div style="font-weight: bold; color: blue; margin-left: 10px;" ng-show="!liveservices.length">
+	   		<br/>Searching... <br/><br/>
+	   		This may take some time as we are collecting health of all of the webservices.
+	   		<br/><br/>
+	   		For a faster response, select service name from the above dropdown.
+	   		<br/>
+	    </div>
+		<accordion close-others="true">
+		    <accordion-group ng-repeat="service in liveservices">
+			    <accordion-heading>			           
+			       <span ng-switch on="service.healthStatus">					
+				    <span ng-switch-when="100" style="font-weight: bold; color: green;">
+				       {{service.name}} is Up and Running
+				    </span>
+				    <span ng-switch-when="0" style="font-weight: bold; color: red;">
+				       {{service.name}} is Down 
+				    </span>
+				    <span ng-switch-default style="font-weight: bold; color: blue;">
+				      {{service.name}} Searching Health Status...      
+				    </span>
+				 </span>	
+			     <img src="resources/images/glyphicons_223_chevron-right.png" style="float:right">
+			    </accordion-heading>	    
+			     {{service.description}}			     	     
+		    </accordion-group>    
+		</accordion>
+  </div>
+</div>

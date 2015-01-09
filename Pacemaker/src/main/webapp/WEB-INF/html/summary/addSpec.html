@@ -1,0 +1,16 @@
+<div class="tableMax">
+	<div class="div-table-caption">
+		Add Service Information
+	</div>
+	<div class='row'>
+		Service Name: <br/><select data-ng-model="selectedServiceSpecName" data-ng-options="service.name for service in services" >
+			<option value= "">Select Service</option>
+	    </select><br/>	    
+	    Specification Title: <br/><input id="specTitle" class="col-md-push-4 col-md-4"  ng-model="specTitle"><br/>
+	    Specification Description:  <br/><textarea class="col-md-push-1 col-md-10" row='60' col='80'  placeholder='Here I go...' ng-model="specContent"></textarea>
+	</div>	
+	<div class='row'>
+	{{selectedServiceSpecName.name}}
+		<button  class="col-md-push-5 col-md-2 btn btn-primary" ng-click="addSpecification()">Save Specification</button>
+	</div>	
+</div>

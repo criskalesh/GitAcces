@@ -1,0 +1,25 @@
+<div class="tableMax">
+	<div class="div-table-caption">
+		Update Service Information
+	</div>
+	<div class='row'>
+		<ul class='col-md-3 nav'>
+			Service Name:<br/>
+			<select data-ng-model="selectedServiceSpecName" data-ng-options="service.name for service in services" >
+				<option value= "">Select Service</option>
+	    	</select><br/>	    
+			<a href="#/createSpecification">
+				<button class="btn btn-success" >Add Specification</button>
+			</a>
+			
+			<div ng-repeat="spec in specs" class='col-md-9' style='background:rgb(242, 222, 222);padding:20px;'>
+				<div class='row'>
+					<h1> {{spec.title}} </h1>
+				</div>
+				<div class='row'>
+			        {{spec.content}} 
+				</div>		
+			</div>
+		</ul>
+	</div>
+</div>

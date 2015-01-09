@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en" ng-app="PacemakerApp" class=" js placeholder">
+<head>
+    <meta charset="utf-8">
+    <title>Pacemaker</title>
+    <link rel="stylesheet" href="resources/css/app.css"/>
+	<link rel="stylesheet" href="resources/css/screen.css" />
+	<link rel="stylesheet" href="resources/bootstrap/css/bootstrap.css" />
+	<link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css" />
+</head>
+<body>
+	<div id="background"></div>
+	<div class="main-view">
+		<div id="application" ng-controller="SummaryController">
+			<div id="header">
+				<div class="header-view">
+					<h1>
+						<a class="main-header-link" href="#">Pacemaker</a>
+					</h1>
+					<div class="navigation">
+						<div id="account-dropdown-view">
+							<div class="account-dropdown-view">
+								<a class="account"> <em style="background-image: url("");">
+								</em> <span>Your Account</span>
+								</a>
+							</div>
+						</div>
+						<ul class="global">
+							<li><a class="selected" href="#">Dashboard</a></li>
+							<li><a id="global-documentation-link"
+								href="#">Documentation</a></li>
+							<li><a ng-click="helpNSupport()">Help & Support</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div id="main-body" class="box">
+				<div id="toolbar-view">
+					<div class="toolbar-view">
+						<div class="inner">
+							<div id="livemode-switch">
+								<div class="switch-view">
+									<div class="switch-view-content" ng-show="selectedSvcEnvironment == 'QA_ENV'">
+										<label class="off">Live</label>
+										<label class="on active">Test</label>
+										<div class="switch-background-off" style="right: 11px;"></div>
+										<div class="switch-background-on" style="left: 30px;"></div>
+										<div class="switch-knob" style="left: 19px;" ng-mousedown="envClicked('PROD_ENV')"></div>
+									</div>
+									<div class="switch-view-content" ng-show="selectedSvcEnvironment == 'PROD_ENV'">
+										<label class="off active">Live</label>
+										<label class="on">Test</label>
+										<div class="switch-background-off" style="right: 30px;"></div>
+										<div class="switch-background-on" style="left: 11px;"></div>
+										<div class="switch-knob" style="left: 0px;" ng-mousedown="envClicked('QA_ENV')"></div>
+									</div>									
+								</div>
+								<div class="quicksearch-view">
+								<form>
+									<div class="mask">
+										<select data-ng-model="selectedServiceName" data-ng-options="service.name for service in services" >
+											<option value= "">Select Service</option>
+									    </select>
+									</div>
+									<div class="clear"></div>
+								</form>
+								<div class="search-results-popover" style="display: none;">
+									<div class="inner">
+										<div class="arrow"></div>
+										<div class="search-results-container"></div>
+										<div class="loading-indicator" style="display: none;">
+											<span> <!-- <img width="16" height="16"
+												src="../../resources/images/spinner.gif"> -->
+												Searching…
+											</span>
+										</div>
+									</div>
+								</div>
+								</div>
+							</div>
+						<div id="breadcrumbs"></div>
+						</div>
+					</div>					
+				</div>
+				
+				
+				
+				<div class="wrap">
+					<div id="welcome-box"></div>
+					<div id="sidebar-view">
+						<div class="sidebar-view">
+							<div class="sidebar-view-gradient"></div>
+							<div class="sidebar-view-content">
+								<div class="gradient"></div>
+								<h4>General</h4>
+								<ul class="navigation">
+									<li class="dashboard selected">
+										<a href="#/summary">
+											<span>Home</span>
+										</a>
+									</li>	
+									<li class="payments">
+										<a href="#/serviceSummary/{{selectedSvcEnvironment}}">
+										<span>Service Summary</span>
+										<div class="unread" style="display: none;"></div>
+										</a>
+									</li>								
+									<li class="payments">
+										<a href="#/updateSpecification">
+										<span>Add Service Details</span>
+										<div class="unread" style="display: none;"></div>
+										</a>
+									</li>					
+									<li class="payments">
+										<a href="#/construction">
+										<span>Service Outage Status</span>
+										<div class="unread" style="display: none;"></div>
+										</a>
+									</li>									
+								</ul>
+								<h4>Troubleshooting</h4>
+								<ul class="navigation">
+									<li class="payments">
+										<a href="#/serviceTroubleShoot">
+										<span>WebService</span>
+										<div class="unread" style="display: none;"></div>
+										</a>
+									</li>	
+									<li class="payments">
+										<a href="#/dbinfo">
+										<span>Database Information</span>
+										<div class="unread" style="display: none;"></div>
+										</a>
+									</li>								
+									<li class="payments">
+										<a href="#/utility">
+										<span>Utility Links</span>
+										<div class="unread" style="display: none;"></div>
+										</a>
+									</li>									
+								</ul>
+							</div>
+						</div>
+					</div>
+					
+					<div id="main-content">
+						<div id="section">
+							<div class="dashboard-view">
+								<div class="test-badge" style="display: block;"></div>
+								<div class="dashboard-content">
+									    <hr class="" />
+    									<div ng-view></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+<script src="resources/js/lib/angular/angular.js"></script>
+<script src="resources/js/lib/angular/angular.min.js"></script>
+<script src="resources/js/lib/angular/angular-route.min.js"></script>
+<script src="resources/js/lib/angular/angular-route.js"></script>
+<script src="resources/js/lib/angular/ui-bootstrap-tpls-0.11.0.min.js"></script>
+
+<script src="resources/js/app.js"></script>
+<!-- <script src="resources/js/controllers/SummaryController.js"></script>
+<script src="resources/js/controllers/SingleLiveStatusController.js"></script> -->
+<script src="resources/js/controllers/components.js"></script>
+</html>

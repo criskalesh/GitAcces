@@ -1,0 +1,167 @@
+<tabs>
+	<pane title="Basic Details"> 
+		<div>
+			<div class="tableMax">
+				<div class="div-table-caption">{{member.name}}</div>
+				<div style="padding: 12px;">
+					<div class="sections" style="min-height: 90px;">
+						<div style="font-size: 18px;">Description</div>
+					</div>
+					<div class="sections1" style="min-height: 90px;">
+						<div style="font-size: 15px;">{{member.description}}</div>
+					</div>
+					<div class="sections" style="min-height: 90px;">
+						<div style="font-size: 18px;">Health</div>
+					</div>
+					<div class="sections1" style="height: 90px;">						
+						<div style="font-size: 15px;">
+							Service Endpoint : {{member.endpoint}}
+							<br/><br/> 
+							<div ng-switch on="member.healthStatus">
+								Health Status :
+							    <div ng-switch-when="100" style="font-weight: bold; color: green;">
+							       {{member.name}} is Up and Running
+							    </div>
+							    <div ng-switch-when="0" style="font-weight: bold; color: red;">
+							       {{member.name}} is Down 
+							    </div>
+							    <div ng-switch-default style="font-weight: bold; color: blue;">
+							       Searching...
+							    </div>
+							</div>
+						</div>
+					</div>
+					<div class="sections" style="min-height: 280px;">
+						<div style="font-size: 18px;">Server Details</div>
+					</div>
+					<div class="sections1" style="height: 280px;">						
+						<div style="font-size: 15px;">
+							<div ng-repeat="serverDetail in member.serverDetails">
+								Server Name: {{serverDetail.name}}
+								<br/>Log Location: {{serverDetail.logLocation}}
+								<br/>Deploy Location: {{serverDetail.deployLocation}}
+								<br/>Config Location: {{serverDetail.configLocation}}
+								<br/><br/>
+							</div>							
+						</div>
+					</div>
+					<div style="clear: both"></div>
+				</div>
+				<div style="clear: both"></div>
+			</div>
+		</div>	
+	</pane>
+	<pane title="Service Spec">
+		<div class="tableMax">
+			<div ng-if="member.type == 'SOAP'">		
+				<div class="div-table-caption">
+					Operation Name
+					<span style="margin-left:51px; margin-right:50px; border-right: 1px solid #cccccc;" ></span>
+					Operation Details
+				</div>
+				<div style="padding: 12px;">
+					<div style="font-size: 15px;">
+						<div ng-repeat="messageDetail in member.messageDetails">
+							<div class="sections2" style="min-height: 90px; word-wrap: break-word;">
+								<div style="font-size: 15px; font-style: bold;">{{messageDetail.name}}</div>
+							</div>
+							<div class="sections1" style="height: 120px; margin-left: 10px; word-wrap: break-word;">	
+								Operation Style: {{messageDetail.style}}
+								<br/><br/>Operation Input Type: {{messageDetail.inputType}}
+								<br/><br/>Operation Output Type: {{messageDetail.outputType}}
+							</div>
+						</div>							
+					</div>
+				</div>			
+			</div>
+			<div ng-if="member.type == 'REST'">		
+				<div class="div-table-caption">
+					Specification Document					
+				</div>
+				<div style="padding: 12px;">
+					<div style="font-size: 15px;">
+						<div ng-repeat="specificationLink in member.specificationLinks">
+							<div class="sections1" word-wrap: break-word;">
+								<div style="font-size: 15px; font-style: bold;">{{specificationLink}}</div>
+							</div>							
+						</div>							
+					</div>
+				</div>			
+			</div>
+	 	</div>
+	</pane> 
+	<pane title="Service Test">
+	<div class="tableMax">
+		<div ng-if="member.type == 'SOAP'">		
+			<div class="sections1">
+				<div style="font-size: 15px;">
+					<div ng-controller="TestSelectControl">
+						<div class="sectionArea">
+							<br /> 
+							Select Operation: 
+							<select class="allVars"
+								ng-change="selectAction()" data-ng-model="selectedOperationName" 
+								ng-options="msg.name for msg in member.messageDetails">
+								<option value="">-- Select Operation --</option>
+							</select> 
+							<br /><br />
+							Select Request: <br />
+							<textarea type="textarea" name="operationInput" data-ng-model="selectedOperationName.testDescription"></textarea>
+							<br />
+							<button type="button" ng-click="testSoapMethod(selectedOperationName)" style="width:100px; margin-left:657px;">Submit</button>
+							<button type="button" ng-click="resetSoapMethod(selectedOperationName)" style="width:100px;">Reset</button>
+							<br />
+							Response: <br /> 
+							<textarea type="textarea" data-ng-model="selectedOperationName.testOutPut"></textarea>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div ng-if="member.type == 'REST'">		
+			<div class="sections1">
+				<div style="font-size: 15px;">
+					<div ng-controller="TestRestSelectControl">
+						<div class="sectionArea">
+							<br /> 
+							Method:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+							<select class="allVars" data-ng-model="messageDetails.inputType">
+								<option value="">-- Select --</option>
+								<option value="GET">GET</option>
+								<option value="POST">POST</option>
+								<option value="PUT">PUT</option>
+								<option value="DELETE">DELETE</option>
+								<option value="OPTIONS">OPTIONS</option>
+								<option value="HEAD">HEAD</option>
+								<option value="TRACE">TRACE</option>
+								<option value="CONNECT">CONNECT</option>
+							</select> 
+							<br /><br />
+							Content Type:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<select class="allVars" data-ng-model="messageDetails.style">
+								<option value="">-- Select --</option>
+								<option value="application/xml">application/xml</option>
+								<option value="application/json">application/json</option>
+								<option value="text/json">text/json</option>
+								<option value="text">text</option>
+							</select>
+							<br /><br />
+							URL:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="text" style="min-width: 80%;" data-ng-model="messageDetails.testEndPoint">
+							<br /><br />
+							Request Body: <br />
+							<textarea type="textarea" name="operationRestInput" data-ng-model="messageDetails.testDescription"></textarea>
+							<br /><br />							
+							<button type="button" ng-click="testRestMethod(messageDetails)" style="width:100px; margin-left:657px;">Submit</button>
+							<button type="button" ng-click="resetRestMethod(messageDetails)" style="width:100px;">Reset</button>
+							<br />
+							Response: <br /> 
+							<textarea type="textarea" data-ng-model="messageDetails.testOutPut"></textarea>
+						</div>
+					</div>
+				</div>
+			</div>			
+		</div>
+	</div>
+	</pane>
+</tabs>
